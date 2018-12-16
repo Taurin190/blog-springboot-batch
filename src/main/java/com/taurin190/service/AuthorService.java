@@ -4,6 +4,9 @@ import com.taurin190.entity.AuthorEntity;
 import com.taurin190.repository.AuthorRepository;
 import com.taurin190.utils.AuthorUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Configurable;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
