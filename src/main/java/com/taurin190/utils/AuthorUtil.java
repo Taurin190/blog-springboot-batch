@@ -5,6 +5,8 @@ import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PropertiesLoaderUtils;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -22,7 +24,8 @@ public class AuthorUtil {
         properties = new Properties();
         try {
             Resource author_file_path = new ClassPathResource(AUTHOR_FILE_PATH);
-            properties = PropertiesLoaderUtils.loadProperties(author_file_path);
+            InputStream in = author_file_path.getInputStream();
+            properties.load(new InputStreamReader(in, "UTF-8"));
 //            properties.load(Files.newBufferedReader(Paths.get(AUTHOR_FILE_PATH), StandardCharsets.UTF_8));
         } catch (IOException e) {
             // ファイル読み込みに失敗
