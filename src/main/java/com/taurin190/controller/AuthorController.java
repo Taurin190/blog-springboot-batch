@@ -17,6 +17,7 @@ public class AuthorController implements BatchController {
     @Override
     public void exec() {
         AuthorEntity entity = authorService.getAuthorEntityByProperties();
+        entity.setId(new Integer(1));
         authorService.saveAuthorEntity(entity);
     }
 }
