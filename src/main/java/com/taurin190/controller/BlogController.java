@@ -11,6 +11,5 @@ public class BlogController implements BatchController {
 
     @Override
     public void exec() {
-
     }
 }
