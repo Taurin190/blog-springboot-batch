@@ -14,7 +14,7 @@ public class BlogService {
     @Autowired
     BlogRepository blogRepository;
 
-    public List<BlogEntity> getAuthorEntitiesByFiles() {
+    public List<BlogEntity> getBlogEntitiesByFiles() {
         List<BlogEntity> entities = new ArrayList<>();
         return entities;
     }
