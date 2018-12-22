@@ -1,5 +1,6 @@
 package com.taurin190.utils;
 
+import com.taurin190.entity.BlogEntity;
 import org.codehaus.jettison.json.JSONArray;
 import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
@@ -48,7 +49,42 @@ public class BlogUtil {
         return blogTitleList;
     }
 
-    public static String getStringFromFile(File file) throws IOException {
+    public static List<JSONObject> getBlogJSONObjectList() {
+        List<JSONObject> blogJSONObjectList = new ArrayList<>();
+        if (blogListJSON != null) {
+            try {
+                for (int i = 0; i < blogListJSON.length(); i++) {
+                    blogJSONObjectList.add(blogListJSON.getJSONObject(i));
+                }
+            } catch(JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        return blogJSONObjectList;
+    }
+
+    public static BlogEntity getBlogEntityByJSON(JSONObject object) {
+        BlogEntity entity = new BlogEntity();
+        try {
+            String title = object.getString("title");
+            String directory = object.getString("directory");
+            Resource blog_file_path = new ClassPathResource("/blogs" + directory + title + ".json");
+            System.out.println(blog_file_path);
+            File file = blog_file_path.getFile();
+            JSONObject blogFile = new JSONObject(getStringFromFile(file));
+            entity.setTitle(blogFile.getString("title"));
+            entity.setBlogBody(blogFile.getString("body"));
+            entity.setEnglishTitle(title);
+            entity.setAuthorId(blogFile.getInt("author_id"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return entity;
+    }
+
+    static String getStringFromFile(File file) throws IOException {
         try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file)))) {
             StringBuffer sb = new StringBuffer();
             int c;

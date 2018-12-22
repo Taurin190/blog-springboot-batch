@@ -1,10 +1,10 @@
 [
     {
-      "title": "test.json",
+      "title": "test",
       "directory": "/"
     },
     {
-      "title": "hoge.json",
+      "title": "hoge",
       "directory": "/2018/"
     }
 ]

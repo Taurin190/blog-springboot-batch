@@ -3,6 +3,7 @@ package com.taurin190.service;
 import com.taurin190.entity.BlogEntity;
 import com.taurin190.repository.BlogRepository;
 import com.taurin190.utils.BlogUtil;
+import org.codehaus.jettison.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,9 +18,11 @@ public class BlogService {
 
     public List<BlogEntity> getBlogEntitiesByFiles() {
         List<BlogEntity> entities = new ArrayList<>();
-        List<String> blogList = BlogUtil.getBlogTitleList();
-        for (int i = 0; i < blogList.size(); i++) {
-            System.out.println(blogList.get(i));
+        List<JSONObject> blogJSONList = BlogUtil.getBlogJSONObjectList();
+        for (JSONObject object : blogJSONList) {
+            BlogEntity entity = BlogUtil.getBlogEntityByJSON(object);
+            entities.add(entity);
+            System.out.println(object);
         }
         return entities;
     }
@@ -28,14 +31,13 @@ public class BlogService {
         return blogRepository.findById(Integer.valueOf(1));
     }
 
-    public BlogEntity saveOrUpdateBlogEntity(BlogEntity entity) {
+    public void saveOrUpdateBlogEntity(BlogEntity entity) {
         Optional<BlogEntity> optionalBlogEntity = blogRepository.getBlogEntityByEnglishTitleEquals(entity.getEnglishTitle());
         optionalBlogEntity.map(
                 blogEntity -> updateBlogEntity(entity)
         ).orElse(
                 saveBlogEntity(entity)
         );
-        return entity;
     }
 
     public List<BlogEntity> getAllBlogEntity() {
