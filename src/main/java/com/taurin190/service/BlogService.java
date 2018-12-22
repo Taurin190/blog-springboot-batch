@@ -2,6 +2,7 @@ package com.taurin190.service;
 
 import com.taurin190.entity.BlogEntity;
 import com.taurin190.repository.BlogRepository;
+import com.taurin190.utils.BlogUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +17,10 @@ public class BlogService {
 
     public List<BlogEntity> getBlogEntitiesByFiles() {
         List<BlogEntity> entities = new ArrayList<>();
+        List<String> blogList = BlogUtil.getBlogTitleList();
+        for (int i = 0; i < blogList.size(); i++) {
+            System.out.println(blogList.get(i));
+        }
         return entities;
     }
 
