@@ -51,8 +51,12 @@ public class BlogService {
         prevEntity.setAuthorId(entity.getAuthorId());
         prevEntity.setTitle(entity.getTitle());
         prevEntity.setBlogBody(entity.getBlogBody());
-        blogRepository.update(entity.getTitle(),
-                entity.getEnglishTitle(), entity.getBlogBody(),
+
+        blogRepository.update(
+                entity.getTitle(),
+                entity.getEnglishTitle(),
+                entity.getBlogBody(),
+                entity.isValid(),
                 prevEntity.getId());
     }
 

@@ -22,7 +22,7 @@ public class BlogEntity {
     String title;
     @Column(name = "published_date")
     String publishedDate;
-    @Column(name = "blog_body")
+    @Column(name = "blog_body", length = 30000)
     String blogBody;
     @Column(name = "is_valid")
     boolean isValid;

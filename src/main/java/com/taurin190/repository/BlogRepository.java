@@ -18,12 +18,14 @@ public interface BlogRepository extends JpaRepository<BlogEntity, Integer> {
     @Query("UPDATE BlogEntity b SET " +
             "b.title = :title, " +
             "b.englishTitle = :english_title, " +
-            "b.blogBody = :blog_body " +
+            "b.blogBody = :blog_body, " +
+            "b.isValid = :is_valid " +
             "where b.id = :id")
     public Integer update(
             @Param("title") String title,
             @Param("english_title") String english_title,
             @Param("blog_body") String blog_body,
+            @Param("is_valid") boolean is_valid,
             @Param("id") Integer id
      );
 }

@@ -76,6 +76,11 @@ public class BlogUtil {
             entity.setBlogBody(blogFile.getString("body"));
             entity.setEnglishTitle(title);
             entity.setAuthorId(blogFile.getInt("author_id"));
+            if (!blogFile.isNull("is_valid")) {
+                entity.setValid(blogFile.getBoolean("is_valid"));
+            } else {
+                entity.setValid(false);
+            }
         } catch (JSONException e) {
             e.printStackTrace();
         } catch (IOException e) {
