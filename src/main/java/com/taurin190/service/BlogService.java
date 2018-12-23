@@ -7,6 +7,7 @@ import org.codehaus.jettison.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityManager;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -50,9 +51,9 @@ public class BlogService {
         prevEntity.setAuthorId(entity.getAuthorId());
         prevEntity.setTitle(entity.getTitle());
         prevEntity.setBlogBody(entity.getBlogBody());
-//        blogRepository.update(entity.getTitle(),
-////                entity.getEnglishTitle(), entity.getBlogBody(),
-//                prevEntity.getId());
+        blogRepository.update(entity.getTitle(),
+                entity.getEnglishTitle(), entity.getBlogBody(),
+                prevEntity.getId());
     }
 
     public BlogEntity saveBlogEntity(BlogEntity entity) {

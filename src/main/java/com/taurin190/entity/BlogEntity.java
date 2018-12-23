@@ -13,7 +13,6 @@ import javax.persistence.*;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@org.hibernate.annotations.NamedQuery(name="update", query="UPDATE blog b SET b.title = :title where b.id = :id")
 public class BlogEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
