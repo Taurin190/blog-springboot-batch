@@ -7,7 +7,9 @@ import org.codehaus.jettison.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -33,22 +35,30 @@ public class BlogService {
 
     public void saveOrUpdateBlogEntity(BlogEntity entity) {
         Optional<BlogEntity> optionalBlogEntity = blogRepository.getBlogEntityByEnglishTitleEquals(entity.getEnglishTitle());
-        optionalBlogEntity.map(
-                blogEntity -> updateBlogEntity(entity)
-        ).orElse(
-                saveBlogEntity(entity)
-        );
+        if (optionalBlogEntity.isPresent()) {
+            updateBlogEntity(optionalBlogEntity.get(), entity);
+        } else {
+            saveBlogEntity(entity);
+        }
     }
 
     public List<BlogEntity> getAllBlogEntity() {
         return blogRepository.findAll();
     }
 
-    public BlogEntity updateBlogEntity(BlogEntity entity) {
-        return blogRepository.save(entity);
+    public void updateBlogEntity(BlogEntity prevEntity, BlogEntity entity) {
+        prevEntity.setAuthorId(entity.getAuthorId());
+        prevEntity.setTitle(entity.getTitle());
+        prevEntity.setBlogBody(entity.getBlogBody());
+//        blogRepository.update(entity.getTitle(),
+////                entity.getEnglishTitle(), entity.getBlogBody(),
+//                prevEntity.getId());
     }
 
     public BlogEntity saveBlogEntity(BlogEntity entity) {
+        SimpleDateFormat format = new SimpleDateFormat();
+        Date date = new Date();
+        entity.setPublishedDate(format.format(date));
         return blogRepository.save(entity);
     }
 }
