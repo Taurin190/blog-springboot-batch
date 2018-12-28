@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 
 
+@Component("com.taurin190.controller.AuthorController")
 @Controller
 public class AuthorController implements BatchController {
     @Autowired
