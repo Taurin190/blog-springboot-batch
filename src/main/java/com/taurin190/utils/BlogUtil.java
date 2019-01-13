@@ -4,6 +4,8 @@ import com.taurin190.entity.BlogEntity;
 import org.codehaus.jettison.json.JSONArray;
 import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 
@@ -15,12 +17,13 @@ import java.util.Properties;
 
 public class BlogUtil {
     private static final String BLOG_LIST_PATH = "/blogs/blog_list.json";
+    private static final String BLOG_LIST_DIRECTORY = "/blogs";
+    private static final String BLOG__HTML_DIRECTORY = "/htmls/";
     private static JSONArray blogListJSON = null;
 
     static {
         try {
             Resource blog_list_file_path = new ClassPathResource(BLOG_LIST_PATH);
-//            InputStream in = blog_list_file_path.getInputStream();
             System.out.println(String.format("ファイル名:%s", ((ClassPathResource) blog_list_file_path).getPath()));
             File file = blog_list_file_path.getFile();
             blogListJSON = new JSONArray(getStringFromFile(file));
@@ -68,7 +71,7 @@ public class BlogUtil {
         try {
             String title = object.getString("title");
             String directory = object.getString("directory");
-            Resource blog_file_path = new ClassPathResource("/blogs" + directory + title + ".json");
+            Resource blog_file_path = new ClassPathResource(BLOG_LIST_DIRECTORY + directory + title + ".json");
             System.out.println(blog_file_path);
             File file = blog_file_path.getFile();
             JSONObject blogFile = new JSONObject(getStringFromFile(file));
@@ -82,15 +85,13 @@ public class BlogUtil {
             } else {
                 entity.setValid(false);
             }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
+        } catch (JSONException | IOException e) {
             e.printStackTrace();
         }
         return entity;
     }
 
-    static String getStringFromFile(File file) throws IOException {
+    private static String getStringFromFile(File file) throws IOException {
         try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file)))) {
             StringBuffer sb = new StringBuffer();
             int c;
@@ -102,5 +103,19 @@ public class BlogUtil {
             e.printStackTrace();
         }
         return "";
+    }
+
+    static String getHTMLBodyByEnglishTitle(String englishTitle) {
+        String htmlBody = "";
+        try {
+            Resource blog_html_file_path = new ClassPathResource(BLOG__HTML_DIRECTORY + englishTitle + ".html");
+            System.out.println(blog_html_file_path);
+            File file = blog_html_file_path.getFile();
+            Document document = Jsoup.parse(getStringFromFile(file));
+            System.out.println(document.body());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return htmlBody;
     }
 }
