@@ -1,10 +1,6 @@
 [
     {
-      "title": "test",
+      "title": "create_blog_site",
       "directory": "/"
-    },
-    {
-      "title": "hoge",
-      "directory": "/2018/"
     }
 ]

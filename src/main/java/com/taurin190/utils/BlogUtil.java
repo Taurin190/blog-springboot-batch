@@ -77,7 +77,7 @@ public class BlogUtil {
             JSONObject blogFile = new JSONObject(getStringFromFile(file));
             entity.setTitle(blogFile.getString("title"));
             entity.setSubTitle(blogFile.getString("sub_title"));
-            entity.setBlogBody(blogFile.getString("body"));
+            entity.setBlogBody(getHTMLBodyByEnglishTitle(title));
             entity.setEnglishTitle(title);
             entity.setAuthorId(blogFile.getInt("author_id"));
             if (!blogFile.isNull("is_valid")) {
@@ -112,7 +112,9 @@ public class BlogUtil {
             System.out.println(blog_html_file_path);
             File file = blog_html_file_path.getFile();
             Document document = Jsoup.parse(getStringFromFile(file));
-            System.out.println(document.body());
+            htmlBody = document.body().toString();
+            htmlBody = htmlBody.replace("<body>","");
+            htmlBody = htmlBody.replace("</body>","");
         } catch (IOException e) {
             e.printStackTrace();
         }

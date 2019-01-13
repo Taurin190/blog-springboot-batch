@@ -390,59 +390,6 @@
   <h2>はじめに</h2>
   <p>アウトプットの重要性を感じ、ブログサイトを作成しました。 Qiitaやはてブを使わずに一から作成することで、一から作れるかを確かめられ、 学び直しと次の課題を考えることが出来ました。 仕事から帰ってからや休日などの時間でSpringbootのアプリをGKE上に置いて公開しました。
   </p>
-  <h2>何を作ったか？</h2>
-  <ul>
-    <li>GKE上にSpringbootのDockerコンテナをデプロイ
-      <ul>
-        <li>テンプレートを修正してHTML作成</li>
-        <li>GCP SQLを使用し、JPAでデータ読み込み</li>
-        <li>Springbootでデータを修正してフロントに表示</li>
-      </ul>
-    </li>
-    <li>GCE上にデータを追加するバッチを作成
-      <ul>
-        <li>プロフィールのデータをpropertiesファイルから読み込んで追加</li>
-        <li>ブログのデータをjsonから読み込んで追加</li>
-      </ul>
-    </li>
-  </ul>
-  <h2>サイトを作成してみて</h2>
-  <h3>GCPでのアプリのデプロイ、各種設定</h3>
-  <ol>
-    <li>DockerイメージをContainer Registryに登録</li>
-    <li>GCP SQLにデータベース作成</li>
-    <li>GKEで登録したDockerイメージを選択してデプロイ</li>
-  </ol>
-  <p>DockerイメージをContainer Registryに登録する方法は、 以下の手順を参考に行えます。 リポジトリにログインして、Dockerイメージにタグを付けてpushすれば登録できます。
-  </p>
-  <p>登録するタグは、このように付ければできます。</p>
-  <pre><code>docker tag [SOURCE_IMAGE] [HOSTNAME]/[PROJECT-ID]/[IMAGE]
-</code></pre>
-  <p>https://cloud.google.com/container-registry/docs/pushing-and-pulling?hl=ja</p>
-  <p>GCP SQLの登録についてもドキュメントがあり、 使用したいDatabaseを選択できます。自分はMySQL5.7を選択しました。
-  </p>
-  <p>https://cloud.google.com/sql/docs/mysql/quickstart?hl=ja</p>
-  <p>GKEのデプロイも選択していけば、簡単に登録は出来るのですが、 SQLとの接続で注意する部分がありました。
-  </p>
-  <ul>
-    <li>GKEでクラスタを作る時に、GCEのインスタンスが立ち上がりSQLへの接続権限を付与する</li>
-    <li>Role設定をしてSQLへの権限を設定する</li>
-    <li>SQLの権限をsecretで登録する</li>
-  </ul>
-  <p>ただ、この辺りの情報については公式ドキュメントに非常に詳しく書かれています。 そのため、公式ドキュメントを見て、チュートリアルをこなしたり実際に触ってみるのが 理解するのに一番早いと感じました。
-  </p>
-  <p>https://cloud.google.com/sql/docs/mysql/connect-kubernetes-engine?hl=ja</p>
-  <h2>今後の課題</h2>
-  <p>今回、簡単にアプリを作ってGCP上にデプロイしてみましたが、 以下は今後の課題としてやっていこうかと思います。
-  </p>
-  <ul>
-    <li>https化と構成の変更</li>
-    <li>投稿部分の作成</li>
-  </ul>
-  <h2>最後に</h2>
-  <p>簡単な参照のみのアプリですが作成し、デプロイまでの一連の流れを確認できました。 分からない部分に関しても公式のドキュメントが充実していて非常に有り難かったです。 今回はサイト自体作りましたが、中身も充実出来るようにしていこうと思います。
-  </p>
-
 </body>
 
 </html>
