@@ -61,9 +61,11 @@ public class BlogService {
     }
 
     public BlogEntity saveBlogEntity(BlogEntity entity) {
-        SimpleDateFormat format = new SimpleDateFormat();
-        Date date = new Date();
-        entity.setPublishedDate(format.format(date));
+        if (entity.getPublishedDate() == null) {
+            SimpleDateFormat format = new SimpleDateFormat("yyyy年MM月dd日");
+            Date date = new Date();
+            entity.setPublishedDate(format.format(date));
+        }
         return blogRepository.save(entity);
     }
 }

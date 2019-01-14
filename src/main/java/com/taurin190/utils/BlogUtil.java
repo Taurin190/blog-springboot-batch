@@ -80,6 +80,9 @@ public class BlogUtil {
             entity.setBlogBody(getHTMLBodyByEnglishTitle(title));
             entity.setEnglishTitle(title);
             entity.setAuthorId(blogFile.getInt("author_id"));
+            if (!blogFile.isNull("published_date")) {
+                entity.setPublishedDate(blogFile.getString("published_date"));
+            }
             if (!blogFile.isNull("is_valid")) {
                 entity.setValid(blogFile.getBoolean("is_valid"));
             } else {
