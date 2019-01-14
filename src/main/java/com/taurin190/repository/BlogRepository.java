@@ -19,6 +19,8 @@ public interface BlogRepository extends JpaRepository<BlogEntity, Integer> {
             "b.title = :title, " +
             "b.englishTitle = :english_title, " +
             "b.blogBody = :blog_body, " +
+            "b.summary = :summary, " +
+            "b.publishedDate = :published_date, " +
             "b.isValid = :is_valid " +
             "where b.id = :id")
     public Integer update(
@@ -26,6 +28,8 @@ public interface BlogRepository extends JpaRepository<BlogEntity, Integer> {
             @Param("english_title") String english_title,
             @Param("blog_body") String blog_body,
             @Param("is_valid") boolean is_valid,
+            @Param("summary") String summary,
+            @Param("published_date") String published_date,
             @Param("id") Integer id
      );
 }

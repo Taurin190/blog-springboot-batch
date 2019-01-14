@@ -48,15 +48,14 @@ public class BlogService {
     }
 
     public void updateBlogEntity(BlogEntity prevEntity, BlogEntity entity) {
-        prevEntity.setAuthorId(entity.getAuthorId());
-        prevEntity.setTitle(entity.getTitle());
-        prevEntity.setBlogBody(entity.getBlogBody());
 
         blogRepository.update(
                 entity.getTitle(),
                 entity.getEnglishTitle(),
                 entity.getBlogBody(),
                 entity.isValid(),
+                entity.getSummary(),
+                entity.getPublishedDate(),
                 prevEntity.getId());
     }
 
