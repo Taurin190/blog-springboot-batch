@@ -62,7 +62,7 @@ public class BlogService {
 
     public BlogEntity saveBlogEntity(BlogEntity entity) {
         if (entity.getPublishedDate() == null) {
-            SimpleDateFormat format = new SimpleDateFormat("yyyy年MM月dd日");
+            SimpleDateFormat format = new SimpleDateFormat("MMM d, YYYY");
             Date date = new Date();
             entity.setPublishedDate(format.format(date));
         }
