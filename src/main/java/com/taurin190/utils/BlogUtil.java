@@ -16,9 +16,9 @@ import java.util.Properties;
 
 
 public class BlogUtil {
-    private static final String BLOG_LIST_PATH = "/blogs/blog_list.json";
-    private static final String BLOG_LIST_DIRECTORY = "/blogs";
-    private static final String BLOG__HTML_DIRECTORY = "/htmls/";
+    private static final String BLOG_LIST_PATH = "/blog-contents/blogs/blog_list.json";
+    private static final String BLOG_LIST_DIRECTORY = "/blog-contents/blogs";
+    private static final String BLOG__HTML_DIRECTORY = "/blog-contents/htmls/";
     private static JSONArray blogListJSON = null;
 
     static {
