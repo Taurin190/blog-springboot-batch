@@ -76,7 +76,7 @@ public class BlogUtil {
             File file = blog_file_path.getFile();
             JSONObject blogFile = new JSONObject(getStringFromFile(file));
             entity.setTitle(blogFile.getString("title"));
-            entity.setSubTitle(blogFile.getString("sub_title"));
+            entity.setSummary(blogFile.getString("summary"));
             entity.setBlogBody(getHTMLBodyByEnglishTitle(title));
             entity.setEnglishTitle(title);
             entity.setAuthorId(blogFile.getInt("author_id"));
