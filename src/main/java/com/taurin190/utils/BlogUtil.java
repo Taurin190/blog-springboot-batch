@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Properties;
 
 
-public class BlogUtil {
+public class BlogUtil extends JSONUtil{
     private static final String BLOG_LIST_PATH = "/blog-contents/blogs/blog_list.json";
     private static final String BLOG_LIST_DIRECTORY = "/blog-contents/blogs";
     private static final String BLOG__HTML_DIRECTORY = "/blog-contents/htmls/";
@@ -92,20 +92,6 @@ public class BlogUtil {
             e.printStackTrace();
         }
         return entity;
-    }
-
-    private static String getStringFromFile(File file) throws IOException {
-        try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file)))) {
-            StringBuffer sb = new StringBuffer();
-            int c;
-            while ((c = br.read()) != -1) {
-                sb.append((char) c);
-            }
-            return sb.toString();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return "";
     }
 
     static String getHTMLBodyByEnglishTitle(String englishTitle) {

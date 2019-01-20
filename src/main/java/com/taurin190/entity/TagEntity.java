@@ -22,8 +22,6 @@ public class TagEntity implements Serializable {
     String name;
     @Column(name = "is_valid")
     boolean isValid;
-    @Column(name = "author_id")
-    Integer authorId;
 
     @ManyToMany
     @JoinTable(name="jnd_tag_blog", joinColumns = @JoinColumn( name = "tag_id"),

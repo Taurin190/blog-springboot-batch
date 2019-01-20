@@ -1,13 +1,15 @@
 package com.taurin190.service;
 
 import com.taurin190.entity.BlogEntity;
+import com.taurin190.entity.TagEntity;
 import com.taurin190.repository.BlogRepository;
+import com.taurin190.repository.TagRepository;
 import com.taurin190.utils.BlogUtil;
+import com.taurin190.utils.TagUtil;
 import org.codehaus.jettison.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.EntityManager;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -19,11 +21,17 @@ public class BlogService {
     @Autowired
     BlogRepository blogRepository;
 
+    @Autowired
+    TagRepository tagRepository;
+
     public List<BlogEntity> getBlogEntitiesByFiles() {
         List<BlogEntity> entities = new ArrayList<>();
         List<JSONObject> blogJSONList = BlogUtil.getBlogJSONObjectList();
         for (JSONObject object : blogJSONList) {
             BlogEntity entity = BlogUtil.getBlogEntityByJSON(object);
+            List<String> tags = TagUtil.getTagListFromJOSNByBlogTitle(entity.getTitle());
+            List<TagEntity> tagEntityList = getTagListByTagNameList(tags);
+            entity.setTagList(tagEntityList);
             entities.add(entity);
             System.out.println(object);
         }
@@ -66,5 +74,49 @@ public class BlogService {
             entity.setPublishedDate(format.format(date));
         }
         return blogRepository.save(entity);
+    }
+
+
+    public TagEntity saveOrUpdateTagEntity(TagEntity entity) {
+        String name = entity.getName();
+        Optional<TagEntity> optionalTagEntity = tagRepository.getTagEntityByNameEquals(name);
+        TagEntity newTagEntity;
+
+        if (optionalTagEntity.isPresent()) {
+            newTagEntity = updateTagEntity(optionalTagEntity.get(), entity);
+        } else {
+            newTagEntity = tagRepository.save(entity);
+        }
+        return newTagEntity;
+    }
+
+    public TagEntity saveOrUpdateTagEntityByName(String name) {
+        Optional<TagEntity> optionalTagEntity = tagRepository.getTagEntityByNameEquals(name);
+        TagEntity newTagEntity = new TagEntity();
+
+        if (optionalTagEntity.isPresent()) {
+            newTagEntity = optionalTagEntity.get();
+        } else {
+            newTagEntity.setName(name);
+            newTagEntity.setValid(true);
+            newTagEntity = tagRepository.save(newTagEntity);
+        }
+        return newTagEntity;
+    }
+
+    private TagEntity updateTagEntity(TagEntity currentEntity, TagEntity newEntity) {
+        TagEntity entity = new TagEntity().builder()
+                .id(currentEntity.getId())
+                .name(newEntity.getName())
+                .isValid(newEntity.isValid())
+                .build();
+        tagRepository.update(entity.getName(), entity.isValid(), entity.getId());
+        return entity;
+    }
+
+    private List<TagEntity> getTagListByTagNameList(List<String> nameList) {
+        List<TagEntity> tagEntityList = new ArrayList<>();
+        nameList.forEach(name -> tagEntityList.add(saveOrUpdateTagEntityByName(name)));
+        return tagEntityList;
     }
 }
