@@ -29,10 +29,17 @@ public class BlogService {
         List<JSONObject> blogJSONList = BlogUtil.getBlogJSONObjectList();
         for (JSONObject object : blogJSONList) {
             BlogEntity entity = BlogUtil.getBlogEntityByJSON(object);
-            List<String> tags = TagUtil.getTagListFromJOSNByBlogTitle(entity.getTitle());
+            List<String> tags = TagUtil.getTagListFromJOSNByBlogTitle(entity.getEnglishTitle());
             List<TagEntity> tagEntityList = getTagListByTagNameList(tags);
             entity.setTagList(tagEntityList);
-            entities.add(entity);
+            tagEntityList.forEach(tag -> {
+                if (tag.getBlogList() == null) {
+                    List<BlogEntity> blogEntityList = new ArrayList<>();
+                    tag.setBlogList(blogEntityList);
+                }
+                tag.getBlogList().add(entity);
+            });
+
             System.out.println(object);
         }
         return entities;
@@ -116,7 +123,20 @@ public class BlogService {
 
     private List<TagEntity> getTagListByTagNameList(List<String> nameList) {
         List<TagEntity> tagEntityList = new ArrayList<>();
-        nameList.forEach(name -> tagEntityList.add(saveOrUpdateTagEntityByName(name)));
+        nameList.forEach(name -> tagEntityList.add(getTagEntityByName(name)));
         return tagEntityList;
+    }
+
+    private TagEntity getTagEntityByName(String name) {
+        Optional<TagEntity> optionalTagEntity = tagRepository.getTagEntityByNameEquals(name);
+        TagEntity newTagEntity = new TagEntity();
+
+        if (optionalTagEntity.isPresent()) {
+            newTagEntity = optionalTagEntity.get();
+        } else {
+            newTagEntity.setName(name);
+            newTagEntity.setValid(true);
+        }
+        return newTagEntity;
     }
 }

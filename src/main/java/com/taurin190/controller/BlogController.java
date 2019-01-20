@@ -22,7 +22,7 @@ public class BlogController implements BatchController {
     public void exec() {
         List<BlogEntity> entityList = blogService.getBlogEntitiesByFiles();
         entityList.forEach(entity -> {
-            tagService.saveOrUpdateByBlogEntity(entity);
+//            tagService.saveOrUpdateByBlogEntity(entity);
             blogService.saveOrUpdateBlogEntity(entity);
         });
     }

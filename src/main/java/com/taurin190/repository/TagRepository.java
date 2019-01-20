@@ -17,8 +17,8 @@ public interface TagRepository extends JpaRepository<TagEntity, Integer> {
     @Modifying
     @Query("UPDATE TagEntity t SET " +
             "t.name = :name, " +
-            "b.isValid = :is_valid " +
-            "where b.id = :id")
+            "t.isValid = :is_valid " +
+            "where t.id = :id")
     public Integer update(
             @Param("name") String name,
             @Param("is_valid") boolean is_valid,
