@@ -37,6 +37,7 @@ public class BlogService {
                 tag.getBlogList().add(entity);
             });
 
+            entities.add(entity);
             System.out.println(object);
         }
         return entities;
