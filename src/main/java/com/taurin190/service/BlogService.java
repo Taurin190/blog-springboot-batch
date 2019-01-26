@@ -11,10 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class BlogService {
@@ -30,11 +27,11 @@ public class BlogService {
         for (JSONObject object : blogJSONList) {
             BlogEntity entity = BlogUtil.getBlogEntityByJSON(object);
             List<String> tags = TagUtil.getTagListFromJOSNByBlogTitle(entity.getEnglishTitle());
-            List<TagEntity> tagEntityList = getTagListByTagNameList(tags);
+            Set<TagEntity> tagEntityList = getTagListByTagNameList(tags);
             entity.setTagList(tagEntityList);
             tagEntityList.forEach(tag -> {
                 if (tag.getBlogList() == null) {
-                    List<BlogEntity> blogEntityList = new ArrayList<>();
+                    Set<BlogEntity> blogEntityList = new HashSet<>();
                     tag.setBlogList(blogEntityList);
                 }
                 tag.getBlogList().add(entity);
@@ -121,8 +118,8 @@ public class BlogService {
         return entity;
     }
 
-    private List<TagEntity> getTagListByTagNameList(List<String> nameList) {
-        List<TagEntity> tagEntityList = new ArrayList<>();
+    private Set<TagEntity> getTagListByTagNameList(List<String> nameList) {
+        Set<TagEntity> tagEntityList = new HashSet<>();
         nameList.forEach(name -> tagEntityList.add(getTagEntityByName(name)));
         return tagEntityList;
     }
