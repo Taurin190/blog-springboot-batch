@@ -1,6 +1,6 @@
 {
   "title": "test blog",
   "body": "test test hoge hoge",
-  "sub_title":"abcdef",
+  "summary":"abcdef",
   "author_id": 1
 }
