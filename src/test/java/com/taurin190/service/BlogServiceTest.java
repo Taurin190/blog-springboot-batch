@@ -10,7 +10,9 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import static org.junit.Assert.assertEquals;
 
@@ -33,8 +35,26 @@ public class BlogServiceTest {
     @Test
     public void getBlogEntitiesByFiles() {
         List<BlogEntity> blogEntityList = blogService.getBlogEntitiesByFiles();
-
         assertEquals(2, blogEntityList.size());
+
+        assertEquals("test blog", blogEntityList.get(0).getTitle());
+        assertEquals("test", blogEntityList.get(0).getEnglishTitle());
+        assertEquals("abcdef", blogEntityList.get(0).getSummary());
+        assertEquals(" \n <h1>TEST BLOG</h1>  \n", blogEntityList.get(0).getBlogBody());
+
+        assertEquals("ほげ2", blogEntityList.get(1).getTitle());
+        assertEquals("hoge", blogEntityList.get(1).getEnglishTitle());
+        assertEquals("abcdef", blogEntityList.get(1).getSummary());
+        assertEquals(" \n <h1>HOGEHOGE</h1>  \n", blogEntityList.get(1).getBlogBody());
+
+        List<TagEntity> tagEntityList1 = new ArrayList<>(blogEntityList.get(0).getTagList());
+        List<TagEntity> tagEntityList2 = new ArrayList<>(blogEntityList.get(1).getTagList());
+
+        assertEquals("ビジネス", tagEntityList1.get(0).getName());
+        assertEquals("GCP", tagEntityList1.get(1).getName());
+
+        assertEquals("GCP", tagEntityList2.get(0).getName());
+        assertEquals("ビジネス", tagEntityList2.get(1).getName());
     }
 
     @Test
