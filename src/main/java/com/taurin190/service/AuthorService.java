@@ -19,7 +19,7 @@ public class AuthorService {
         entity.setSelfIntroduction(AuthorUtil.getProperty("self_introduction"));
         entity.setTwitterAccount(AuthorUtil.getProperty("twitter_account"));
         entity.setGithubAccount(AuthorUtil.getProperty("github_account"));
-        entity.setValid(Boolean.getBoolean(AuthorUtil.getProperty("is_valid")));
+        entity.setValid(Boolean.valueOf(AuthorUtil.getProperty("is_valid")));
         return entity;
     }
 
