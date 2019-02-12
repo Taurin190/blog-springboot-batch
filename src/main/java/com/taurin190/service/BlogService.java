@@ -43,10 +43,6 @@ public class BlogService {
         return entities;
     }
 
-    public Optional<BlogEntity> getAuthorEntityByRepository() {
-        return blogRepository.findById(Integer.valueOf(1));
-    }
-
     public void saveOrUpdateBlogEntity(BlogEntity entity) {
         Optional<BlogEntity> optionalBlogEntity = blogRepository.getBlogEntityByEnglishTitleEquals(entity.getEnglishTitle());
         if (optionalBlogEntity.isPresent()) {
