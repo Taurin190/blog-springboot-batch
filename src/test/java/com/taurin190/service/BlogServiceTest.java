@@ -60,24 +60,4 @@ public class BlogServiceTest {
         assertEquals("GCP", tagEntityList2.get(0).getName());
         assertEquals("ビジネス", tagEntityList2.get(1).getName());
     }
-
-    @Test
-    public void saveOrUpdateTagEntity() {
-
-    }
-
-    @Test
-    public void saveOrUpdateTagEntityByName() {
-
-    }
-
-    @Test
-    public void getTagListByTagNameList() {
-
-    }
-
-    @Test
-    public void getTagEntityByName() {
-
-    }
 }
