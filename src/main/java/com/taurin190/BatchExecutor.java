@@ -3,6 +3,7 @@ package com.taurin190;
 import com.taurin190.controller.BatchController;
 import com.taurin190.controller.AuthorController;
 import com.taurin190.controller.BlogController;
+import com.taurin190.controller.WorkController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,9 @@ public class BatchExecutor implements CommandLineRunner{
 
     @Autowired
     BlogController blogController;
+
+    @Autowired
+    WorkController workController;
 
     BatchController batchController;
 
